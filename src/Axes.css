@@ -1,0 +1,6 @@
+.XYAxis.TickUnit{
+    font-family: Arial, Helvetica, sans-serif;
+    fill:white;
+    font-size: 20px;
+    user-select:none;
+}

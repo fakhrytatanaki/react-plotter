@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Plotter,SpaceVector} from './Plotter'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+const scale : SpaceVector  = {x:20,y:20}
+
+const trigEq = () => {
+
+    let res : SpaceVector[] = [],
+        x:number,
+        y:number
+
+    for (let i=0;i < 4*Math.PI ; i+=0.02){
+        x = 4*Math.cos(i) + Math.sin(20*i)
+        y = 4*Math.sin(i) + Math.cos(20*i)
+        res.push({x:x,y:y})
+    }
+     return res
 }
 
+const App : React.FC = () => (
+    <>
+    <h1>
+        Simple Plotter
+    </h1>
+        <Plotter color='#6688ff' width={700} height={700} points={trigEq()} scale={scale} />
+    </>
+)
+
+
+
 export default App;
+
