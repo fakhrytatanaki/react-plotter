@@ -4,7 +4,7 @@ import Axes from './Axes'
 import './Plotter.css'
 
 
-export interface SpaceVector {
+export interface SpaceVector { //describes points in Euclidean space
     x : number
     y : number
 }
@@ -19,13 +19,15 @@ interface Props {
 }
 
 
-interface DragState {
-    drag : boolean
+interface DragState { // signals whether the origin should be moved or not
+    drag : boolean  
     startCoord : SpaceVector 
 }
 
 
 export const mapCoordinatesToView = ( args : {origin : SpaceVector, point : SpaceVector,scale : SpaceVector, viewDimensions : SpaceVector} ) => ({
+
+    //transforms the points in eulidean space accordingly to svg view
 
     x : args.origin.x + args.point.x * args.scale.x,
 
@@ -37,9 +39,9 @@ export const mapCoordinatesToView = ( args : {origin : SpaceVector, point : Spac
 export const Plotter : React.FC<Props> = (props : Props) => {
     
     
-    const HOME_ORIGIN : SpaceVector = {x : props.width/2 , y: props.height/2}
+    const HOME_ORIGIN : SpaceVector = {x : props.width/2 , y: props.height/2} // default position of the graph origin
 
-    const [origin,setOrigin] = React.useState<SpaceVector>(HOME_ORIGIN)
+    const [origin,setOrigin] = React.useState<SpaceVector>(HOME_ORIGIN) // 
 
     const [dragState,setDragState] = React.useState<DragState>({
         drag:false,
@@ -137,7 +139,7 @@ export const Plotter : React.FC<Props> = (props : Props) => {
 
             <path stroke-width={props.strokeWidth || '2px'} d={plotPathString()} fill='none' stroke={props.color || 'white'}/>
 
-            <Axes/>
+            <Axes origin={origin} scale={props.scale} width={props.width} height={props.height}/>
 
             </svg>
             <button onClick={()=>{ setOrigin(HOME_ORIGIN) }} className='Plotter' > reset </button>
